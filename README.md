@@ -1,2 +1,2 @@
 # Combination-Lock
-FPGA design of a combination lock state machine with an unlocked state, locked state, and alarm state.
+FPGA design of a combination lock state machine with an unlocked state, locked state, and alarm state. The design locks/unlocks when the correct code is input followed by the enter key. If an incorrect number is entered in the lock state, the design allows the user to continue entering numbers until the number of inputs reaches the same as the combination and then triggers the alarm state. In alarm state, the user can input the code and disable the alarm returning it to unlocked. There is a harness input to the design that triggers the alarm if the connection is broken inside the lock state.
