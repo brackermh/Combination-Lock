@@ -1,0 +1,1089 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx leaf cells in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+
+--Lock/Unlock code for this design is 3-0-1-1-2 followed by 4(enter)
+
+entity bikelock is
+    Port ( x : in STD_LOGIC_VECTOR (4 downto 0);
+           h : in STD_LOGIC;
+           L : out STD_LOGIC;
+           A : out STD_LOGIC;
+           Reset : in STD_LOGIC;
+           CLK : in STD_LOGIC;
+           rs, ls, as : out STD_LOGIC);
+end bikelock;
+
+architecture Behavioral of bikelock is
+
+type state is (s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s17,s18,s19,s20,s21,s22,s23,s24,s25,s26,s27,s28,s29,s30,s31,s32,s33,s34,s35,s36,s37,s38,s39,s40,s41,s42,s43,s44,s45,s46,s47,s48,s49,s50,s51,s52,s53,s54,s55,s56,s57,s58,s59,s60,s61,s62);
+signal pstate,nstate : state;
+begin
+
+
+process (CLK,Reset)
+begin
+    if (Reset='0') then 
+        pstate <= s0;
+    elsif (CLK'event and CLK='1') then
+        pstate<=nstate;
+    end if;
+end process;
+
+process(x,h,pstate)
+begin
+    case h is
+        when '0'=>
+            case pstate is
+            --arming phase
+                when s0=>
+                    case x is
+                        when "00100" => nstate<=s0;
+                        L<='0'; A<='0';
+                        when "00010" => nstate<=s0;
+                        L<='0'; A<='0';
+                        when "00001" => nstate<=s0;
+                        L<='0'; A<='0';
+                        when "01000" => nstate<=s1;
+                        L<='0'; A<='0';
+                        when "10000" => nstate<=s0;
+                        L<='0'; A<='0';
+                        when "00000" => nstate<=s0;
+                        L<='0'; A<='0';
+                        when others=> 
+                    end case;
+                when s1=>
+                    case x is
+                        when "00000" => nstate<=s2;
+                        L<='0'; A<='0';
+                        when "01000" => nstate<=s1;
+                        L<='0'; A<='0';
+                        when others=>
+                    end case;
+                when s2=>
+                    case x is
+                        when "00000" => nstate<=s2;
+                        L<='0'; A<='0';
+                        when "00001" => nstate<=s3;
+                        L<='0'; A<='0';
+                        when "00010" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "00100" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "01000" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "10000" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when others=>
+                    end case;
+                when s3=>
+                    case x is
+                        when "00000" => nstate<=s4;
+                        L<='0'; A<='0';
+                        when "00001" => nstate<=s3;
+                        L<='0'; A<='0';
+                        when others=>
+                    end case;
+                 when s4=>
+                    case x is
+                        when "00000" => nstate<=s4;
+                        L<='0'; A<='0';
+                        when "00001" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "00010" => nstate<=s5;
+                        L<='0'; A<='0';
+                        when "00100" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "01000" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "10000" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when others=>
+                    end case;
+                when s5=>
+                    case x is
+                        when "00000" => nstate<=s6;
+                        L<='0'; A<='0';
+                        when "00010" => nstate<=s5;
+                        L<='0'; A<='0';
+                        when others=>
+                    end case;
+                 when s6=>
+                    case x is
+                        when "00000" => nstate<=s6;
+                        L<='0'; A<='0';
+                        when "00001" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "00010" => nstate<=s7;
+                        L<='0'; A<='0';
+                        when "00100" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "01000" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "10000" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when others=>
+                    end case;
+                when s7=>
+                    case x is
+                        when "00000" => nstate<=s8;
+                        L<='0'; A<='0';
+                        when "00010" => nstate<=s7;
+                        L<='0'; A<='0';
+                        when others=>
+                    end case;
+                 when s8=>
+                    case x is
+                        when "00000" => nstate<=s8;
+                        L<='0'; A<='0';
+                        when "00001" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "00010" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "00100" => nstate<=s9;
+                        L<='0'; A<='0';
+                        when "01000" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "10000" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when others=>
+                    end case;
+                when s9=>
+                    case x is
+                        when "00000" => nstate<=s10;
+                        L<='0'; A<='0';
+                        when "00100" => nstate<=s9;
+                        L<='0'; A<='0';
+                        when others=>
+                    end case;
+                when s10=>
+                    case x is
+                        when "00000" => nstate<=s10;
+                        L<='0'; A<='0';
+                        when "00001" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "00010" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "00100" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "01000" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "10000" => nstate<=s11;
+                        L<='0'; A<='0';
+                        when others=>
+                    end case;
+                when s11=>
+                    case x is
+                        when "00000" => nstate<=s12;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s11;
+                        L<='0'; A<='0';
+                        when others=>
+                    end case;
+                when s13=>
+                    case x is
+                        when "00000" => nstate<=s0;
+                        L<='0'; A<='0';
+                        when "00001" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "00010" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "00100" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "01000" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when "10000" => nstate<=s13;
+                        L<='0'; A<='0';
+                        when others=>
+                    end case;
+               --moving to lock state - succesful input of arming code
+               when s12=>
+                    case x is
+                        when "00000" => nstate<=s12;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s29;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s29;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s29;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s14;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s28;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                when s14=>
+                    case x is
+                        when "00000" => nstate<=s15;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s14;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                 when s15=>
+                    case x is
+                        when "00000" => nstate<=s15;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s16;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s31;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s31;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s52;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s28;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                when s16=>
+                    case x is
+                        when "00000" => nstate<=s17;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s16;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                when s17=>
+                    case x is
+                        when "00000" => nstate<=s17;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s33;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s18;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s33;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s54;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s28;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                when s18=>
+                    case x is
+                        when "00000" => nstate<=s19;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s18;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                 when s19=>
+                    case x is
+                        when "00000" => nstate<=s19;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s35;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s20;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s35;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s56;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s28;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                when s20=>
+                    case x is
+                        when "00000" => nstate<=s21;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s20;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                 when s21=>
+                    case x is
+                        when "00000" => nstate<=s21;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s37;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s37;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s22;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s58;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s28;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                when s22=>
+                    case x is
+                        when "00000" => nstate<=s23;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s22;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                 when s23=>
+                    case x is
+                        when "00000" => nstate<=s23;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s39;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s39;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s39;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s60;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s24;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                when s24=>
+                    case x is
+                        when "00000" => nstate<=s0;
+                        L<='0'; A<='0';
+                        when "10000" => nstate<=s24;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                    --alarm disarm
+                 when s27=>
+                    case x is
+                        when "00000" => nstate<=s26;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s27;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                  when s26=>
+                    case x is
+                        when "00000" => nstate<=s26;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s35;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s35;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s35;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s25;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s39;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                when s25=>
+                    case x is
+                        when "00000" => nstate<=s12;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s25;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                when s28=>
+                    case x is
+                        when "10000" => nstate<=s28;
+                        L<='1'; A<='0';
+                        when "00000" => nstate<=s12;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                 when s29=>
+                    case x is
+                        when "00000" => nstate<=s30;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s29;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s29;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s29;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s29;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s29;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                 when s30=>
+                    case x is
+                        when "00000" => nstate<=s30;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s31;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s31;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s31;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s52;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s28;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                when s31=>
+                    case x is
+                        when "00000" => nstate<=s32;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s31;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s31;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s31;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                 when s32=>
+                    case x is
+                        when "00000" => nstate<=s32;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s33;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s33;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s33;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s54;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s28;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                when s33=>
+                    case x is
+                        when "00000" => nstate<=s34;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s33;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s33;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s33;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                when s34=>
+                    case x is
+                        when "00000" => nstate<=s34;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s35;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s35;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s35;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s56;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s28;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                when s35=>
+                    case x is
+                        when "00000" => nstate<=s36;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s35;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s35;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s35;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                  when s36=>
+                    case x is
+                        when "00000" => nstate<=s36;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s37;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s37;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s37;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s58;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s28;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                when s37=>
+                    case x is
+                        when "00000" => nstate<=s38;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s37;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s37;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s37;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                when s38=>
+                    case x is
+                        when "00000" => nstate<=s38;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s39;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s39;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s39;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s60;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s39;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                when s39=>
+                    case x is
+                        when "00000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00001" => nstate<=s39;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s39;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s39;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s39;
+                        L<='1'; A<='0';
+                        when others=>
+                    end case;
+                    --alarm state execution
+                when s40=>
+                    case x is
+                        when "00000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00001" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00010" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00100" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "01000" => nstate<=s41;
+                        L<='1'; A<='1';
+                        when "10000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;    
+               when s41=>
+                    case x is
+                        when "00000" => nstate<=s42;
+                        L<='1'; A<='1';
+                        when "01000" => nstate<=s41;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;
+               when s42=>
+                    case x is
+                        when "00000" => nstate<=s42;
+                        L<='1'; A<='1';
+                        when "00001" => nstate<=s43;
+                        L<='1'; A<='1';
+                        when "00010" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00100" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "01000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "10000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;    
+               when s43=>
+                    case x is
+                        when "00000" => nstate<=s44;
+                        L<='1'; A<='1';
+                        when "00001" => nstate<=s43;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;
+               when s44=>
+                    case x is
+                        when "00000" => nstate<=s44;
+                        L<='1'; A<='1';
+                        when "00001" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00010" => nstate<=s45;
+                        L<='1'; A<='1';
+                        when "00100" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "01000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "10000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;    
+               when s45=>
+                    case x is
+                        when "00000" => nstate<=s46;
+                        L<='1'; A<='1';
+                        when "00010" => nstate<=s45;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;
+               when s46=>
+                    case x is
+                        when "00000" => nstate<=s46;
+                        L<='1'; A<='1';
+                        when "00001" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00010" => nstate<=s47;
+                        L<='1'; A<='1';
+                        when "00100" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "01000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "10000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;    
+               when s47=>
+                    case x is
+                        when "00000" => nstate<=s48;
+                        L<='1'; A<='1';
+                        when "00010" => nstate<=s47;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;
+                when s48=>
+                    case x is
+                        when "00000" => nstate<=s48;
+                        L<='1'; A<='1';
+                        when "00001" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00010" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00100" => nstate<=s49;
+                        L<='1'; A<='1';
+                        when "01000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "10000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;    
+               when s49=>
+                    case x is
+                        when "00000" => nstate<=s50;
+                        L<='1'; A<='1';
+                        when "00100" => nstate<=s49;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;
+               when s50=>
+                    case x is
+                        when "00000" => nstate<=s50;
+                        L<='1'; A<='1';
+                        when "00001" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00010" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00100" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "01000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "10000" => nstate<=s51;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;
+               when s51=>
+                    case x is 
+                        when "00000" => nstate<=s12;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s51;
+                        L<='1';A<='1';
+                        when others=>
+                    end case;
+                    --return to armed state
+                when s52=>
+                    case x is
+                        when "00000" => nstate<=s53;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s52;
+                        L<='1'; A<='0';
+                        when others=>
+                     end case;
+                when s53=> 
+                    case x is 
+                        when "00000" => nstate<=s53;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s33;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s33;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s33;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s62;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s12;
+                        L<='1'; A<='0';
+                        when others=>
+                     end case;
+                when s54=>
+                    case x is
+                        when "00000" => nstate<=s55;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s54;
+                        L<='1'; A<='0';
+                        when others=>
+                     end case;
+                when s55=> 
+                    case x is 
+                        when "00000" => nstate<=s55;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s35;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s35;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s35;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s62;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s12;
+                        L<='1'; A<='0';
+                        when others=>
+                     end case;
+               when s56=>
+                    case x is
+                        when "00000" => nstate<=s57;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s56;
+                        L<='1'; A<='0';
+                        when others=>
+                     end case;
+                when s57=> 
+                    case x is 
+                        when "00000" => nstate<=s57;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s37;
+                        L<='1'; A<='0';
+                        when "00010" => nstate<=s37;
+                        L<='1'; A<='0';
+                        when "00100" => nstate<=s37;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s62;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s12;
+                        L<='1'; A<='0';
+                        when others=>
+                     end case;
+                when s58=>
+                    case x is
+                        when "00000" => nstate<=s59;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s58;
+                        L<='1'; A<='0';
+                        when others=>
+                     end case;
+                when s59=> 
+                    case x is 
+                        when "00000" => nstate<=s59;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00010" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00100" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "01000" => nstate<=s62;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when others=>
+                     end case;
+                 when s60=>
+                    case x is
+                        when "00000" => nstate<=s61;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s60;
+                        L<='1'; A<='0';
+                        when others=>
+                     end case;
+                when s61=> 
+                    case x is 
+                        when "00000" => nstate<=s61;
+                        L<='1'; A<='0';
+                        when "00001" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00010" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00100" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "01000" => nstate<=s62;
+                        L<='1'; A<='0';
+                        when "10000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when others=>
+                     end case;
+                 when s62=> 
+                    case x is 
+                        when "00000" => nstate<=s12;
+                        L<='1'; A<='0';
+                        when "01000" => nstate<=s62;
+                        L<='1'; A<='0';
+                        when others=>
+                     end case;
+                    when others=>
+                    end case;
+              --end pstate case
+              --when h = 1
+           when '1' =>
+                case pstate is
+                --arming phase h = 1 
+                    when s0=>nstate<=s0;
+                    L<='0'; A<='0';
+                    when s1=>nstate<=s0;
+                    L<='0'; A<='0';
+                    when s2=>nstate<=s0;
+                    L<='0'; A<='0';
+                    when s3=>nstate<=s0;
+                    L<='0'; A<='0';
+                    when s4=>nstate<=s0;
+                    L<='0'; A<='0';
+                    when s5=>nstate<=s0;
+                    L<='0'; A<='0';
+                    when s6=>nstate<=s0;
+                    L<='0'; A<='0';
+                    when s7=>nstate<=s0;
+                    L<='0'; A<='0';
+                    when s8=>nstate<=s0;
+                    L<='0'; A<='0';
+                    when s9=>nstate<=s0;
+                    L<='0'; A<='0';
+                    when s10=>nstate<=s0;
+                    L<='0'; A<='0';
+                    when s11=>nstate<=s0;
+                    L<='0'; A<='0';
+                    when s13=>nstate<=s0;
+                    L<='0'; A<='0';
+                    --armed state
+                    when s12=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s14=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s15=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s16=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s17=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s18=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s19=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s20=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s21=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s22=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s23=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s24=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s25=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s26=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s27=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s28=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s29=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s30=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s31=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s32=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s33=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s34=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s35=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s36=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s37=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s38=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s39=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s52=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s53=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s54=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s55=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s56=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s57=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s58=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s59=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s60=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s61=>nstate<=s40;
+                    L<='1'; A<='1';
+                    when s62=>nstate<=s40;
+                    L<='1'; A<='1';
+                    --alarm state h = 1
+               when s40=>
+                    case x is
+                        when "00000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00001" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00010" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00100" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "01000" => nstate<=s41;
+                        L<='1'; A<='1';
+                        when "10000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;    
+               when s41=>
+                    case x is
+                        when "00000" => nstate<=s42;
+                        L<='1'; A<='1';
+                        when "01000" => nstate<=s41;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;
+               when s42=>
+                    case x is
+                        when "00000" => nstate<=s42;
+                        L<='1'; A<='1';
+                        when "00001" => nstate<=s43;
+                        L<='1'; A<='1';
+                        when "00010" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00100" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "01000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "10000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;    
+               when s43=>
+                    case x is
+                        when "00000" => nstate<=s44;
+                        L<='1'; A<='1';
+                        when "00001" => nstate<=s43;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;
+               when s44=>
+                    case x is
+                        when "00000" => nstate<=s44;
+                        L<='1'; A<='1';
+                        when "00001" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00010" => nstate<=s45;
+                        L<='1'; A<='1';
+                        when "00100" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "01000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "10000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;    
+               when s45=>
+                    case x is
+                        when "00000" => nstate<=s46;
+                        L<='1'; A<='1';
+                        when "00010" => nstate<=s45;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;
+               when s46=>
+                    case x is
+                        when "00000" => nstate<=s46;
+                        L<='1'; A<='1';
+                        when "00001" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00010" => nstate<=s47;
+                        L<='1'; A<='1';
+                        when "00100" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "01000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "10000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;    
+               when s47=>
+                    case x is
+                        when "00000" => nstate<=s48;
+                        L<='1'; A<='1';
+                        when "00010" => nstate<=s47;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;
+                when s48=>
+                    case x is
+                        when "00000" => nstate<=s48;
+                        L<='1'; A<='1';
+                        when "00001" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00010" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00100" => nstate<=s49;
+                        L<='1'; A<='1';
+                        when "01000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "10000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;    
+               when s49=>
+                    case x is
+                        when "00000" => nstate<=s50;
+                        L<='1'; A<='1';
+                        when "00100" => nstate<=s49;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;
+               when s50=>
+                    case x is
+                        when "00000" => nstate<=s50;
+                        L<='1'; A<='1';
+                        when "00001" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00010" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "00100" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "01000" => nstate<=s40;
+                        L<='1'; A<='1';
+                        when "10000" => nstate<=s51;
+                        L<='1'; A<='1';
+                        when others=>
+                    end case;
+               when s51=>
+                    case x is 
+                        when "00000" => nstate<=s0;
+                        L<='1'; A<='0';
+                        --return to unarmed h = 1 
+                        when "10000" => nstate<=s51;
+                        L<='1';A<='1';
+                        when others=>
+                    end case;
+               when others=>
+               end case;
+               when others=>
+          end case;
+      end process;         
+      
+      
+end Behavioral;
